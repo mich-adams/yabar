@@ -8,7 +8,7 @@ DEPS += pango pangocairo libconfig gdk-pixbuf-2.0 alsa
 ifdef PLAYERCTL
 CFLAGS += -DPLAYERCTL
 CPPFLAGS += -DPLAYERCTL
-DEPS += playerctl-1.0
+DEPS += playerctl
 endif
 
 LDFLAGS += -flto -O2
