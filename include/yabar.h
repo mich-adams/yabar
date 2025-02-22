@@ -219,13 +219,11 @@ struct ya_block {
 
 	blk_intern_t *internal;
 
-#ifdef YA_DYN_COL
 	char *strbuf;
 	uint32_t bgcolor_old; //initial background color
 	uint32_t fgcolor_old; //initial foreground color
 	uint32_t ulcolor_old; //initial underline color
 	uint32_t olcolor_old; //initial overline color
-#endif
 
 #ifdef YA_ICON
 	blk_img_t *img;
@@ -302,10 +300,8 @@ struct ya_bar {
 	pthread_mutex_t mutex;
 #endif //YA_MUTEX
 
-#ifdef YA_NOWIN_COL
 	xcb_gcontext_t gc;
 	uint32_t bgcolor_none;
-#endif //YA_NOWIN_COL
 };
 
 

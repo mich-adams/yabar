@@ -90,12 +90,10 @@ static void ya_copy_blk_members(ya_block_t *dstb, ya_block_t *srcb) {
 			dstb->internal->option[i] = srcb->internal->option[i];
 		dstb->internal->index = srcb->internal->index;
 	}
-#ifdef YA_DYN_COL
 	dstb->fgcolor_old = srcb->fgcolor_old;
 	dstb->bgcolor_old = srcb->bgcolor_old;
 	dstb->ulcolor_old = srcb->ulcolor_old;
 	dstb->olcolor_old = srcb->olcolor_old;
-#endif //YA_DYN_COL
 
 #ifdef YA_ICON
 	if((srcb->attr & BLKA_ICON)) {
@@ -329,13 +327,11 @@ static void ya_setup_bar(config_setting_t * set) {
 	if(retcnf == CONFIG_TRUE) {
 		bar->bgcolor = retint | 0xff000000;
 	}
-#ifdef YA_NOWIN_COL
 	retcnf = config_setting_lookup_int(set, "background-color-nowindow-argb", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		bar->bgcolor_none = retint;
 		bar->attr |= BARA_DYN_COL;
 	}
-#endif //YA_NOWIN_COL
 	retcnf = config_setting_lookup_int(set, "slack-size", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		bar->slack = retint;
@@ -384,9 +380,7 @@ static void ya_setup_bar(config_setting_t * set) {
 					ya_copy_blk_members(dstblk, srcblk);
 					dstblk->buf = calloc(1, dstblk->bufsize);
 					dstblk->bar = bar;
-#ifdef YA_NOWIN_COL
 					dstblk->strbuf = dstblk->buf;
-#endif
 					ya_create_block(dstblk);
 				}
 			}
@@ -697,13 +691,11 @@ skip_type:
 
 	blk->buf = calloc(1, blk->bufsize);
 
-#ifdef YA_DYN_COL
 	blk->bgcolor_old = blk->bgcolor;
 	blk->fgcolor_old = blk->fgcolor;
 	blk->ulcolor_old = blk->ulcolor;
 	blk->olcolor_old = blk->olcolor;
 	blk->strbuf = blk->buf;
-#endif
 
 #ifdef YA_MUTEX
 	pthread_mutex_init(&blk->mutex, NULL);

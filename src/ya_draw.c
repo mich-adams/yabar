@@ -192,11 +192,9 @@ void ya_create_bar(ya_bar_t * bar) {
 			ya.visualtype->visual_id,
 			w_mask,
 			w_val);
-#ifdef YA_NOWIN_COL
 	bar->gc = xcb_generate_id(ya.c);
 	xcb_create_gc(ya.c, bar->gc, bar->win, XCB_GC_FOREGROUND, (const uint32_t[]){bar->bgcolor});
 	ya_draw_bar_curwin(bar);
-#endif //YA_NOWIN_COL
 	ya_setup_ewmh(bar);
 }
 
@@ -220,7 +218,6 @@ xcb_visualtype_t * ya_get_visualtype() {
  * Parse color(background, foreground, underline and overline)
  * from text buffer and then relocate start of designated text to strbuf member.
  */
-#ifdef YA_DYN_COL
 void ya_buf_color_parse(ya_block_t *blk) {
 	char *cur = blk->buf;
 	char *end;
@@ -275,7 +272,6 @@ void ya_buf_color_parse(ya_block_t *blk) {
 	}
 	xcb_change_gc(ya.c, blk->gc, XCB_GC_FOREGROUND, (const uint32_t[]){blk->bgcolor});
 }
-#endif //YA_DYN_COL
 
 #ifdef YA_INTERNAL_EWMH
 /*
@@ -378,11 +374,9 @@ cairo_surface_t * ya_draw_graphics(ya_block_t *blk) {
 }
 #endif //YA_ICON
 
-#ifdef YA_NOWIN_COL
 inline void ya_inherit_bar_bgcol(ya_block_t *blk) {
 	//if (ya.curwin == ya.lstwin)
 	//	return;
-#ifdef YA_DYN_COL
 	//If there is no current window, set color to bgcolor_none
 	//Otherwise set it to the normal bar background color
 	uint32_t col = 0x0;
@@ -401,12 +395,6 @@ inline void ya_inherit_bar_bgcol(ya_block_t *blk) {
 			blk->bgcolor_old = col;
 		}
 	}
-#else
-	if(!(blk->attr & BLKA_BGCOLOR)) {
-		blk->bgcolor = blk->bar->bgcolor;
-		xcb_change_gc(ya.c, blk->gc, XCB_GC_FOREGROUND, (const uint32_t[]){blk->bgcolor});
-	}
-#endif //YA_DYN_COL
 }
 
 inline void ya_draw_bar_curwin(ya_bar_t *bar) {
@@ -443,7 +431,6 @@ void ya_redraw_bar(ya_bar_t *bar) {
 
 	bar->attr &= ~BARA_REDRAW;
 }
-#endif //YA_NOWIN_COL
 
 
 
@@ -486,18 +473,11 @@ static inline void ya_get_text_max_width(ya_block_t *blk) {
 	PangoLayout *layout = pango_layout_new(context);
 	pango_layout_set_font_description(layout, blk->bar->desc);
 
-#ifdef YA_DYN_COL
 	//Start drawing text at strbuf member, where !Y COLORS Y! config ends
 	if (!(blk->attr & BLKA_MARKUP_PANGO))
 		pango_layout_set_text(layout, blk->strbuf, strlen(blk->strbuf));
 	else
 		pango_layout_set_markup(layout, blk->strbuf, strlen(blk->strbuf));
-#else
-	if (!(blk->attr & BLKA_MARKUP_PANGO))
-		pango_layout_set_text(layout, blk->buf, strlen(blk->buf));
-	else
-		pango_layout_set_markup(layout, blk->buf, strlen(blk->buf));
-#endif
 	//pango_layout_set_alignment(layout, blk->justify);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
 	pango_layout_set_auto_dir(layout, false);
@@ -712,7 +692,6 @@ void ya_draw_pango_text(struct ya_block *blk) {
 	pango_layout_set_font_description(layout, blk->bar->desc);
 
 	//fprintf(stderr, "010=%s\n", blk->name);
-#ifdef YA_DYN_COL
 	//Start drawing text at strbuf member, where !Y COLORS Y! config ends.
 	//strbuf member is initialized to buf member by default. So it will work
 	//well with internal blocks.
@@ -720,12 +699,6 @@ void ya_draw_pango_text(struct ya_block *blk) {
 		pango_layout_set_text(layout, blk->strbuf, strlen(blk->strbuf));
 	else
 		pango_layout_set_markup(layout, blk->strbuf, strlen(blk->strbuf));
-#else
-	if (!(blk->attr & BLKA_MARKUP_PANGO))
-		pango_layout_set_text(layout, blk->buf, strlen(blk->buf));
-	else
-		pango_layout_set_markup(layout, blk->buf, strlen(blk->buf));
-#endif
 	//fprintf(stderr, "020=%s\n", blk->name);
 	pango_layout_set_alignment(layout, blk->justify);
 	cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);

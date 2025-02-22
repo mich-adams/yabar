@@ -47,6 +47,7 @@
 		buildInputs = with pkgs; [
 		    cairo
 			gdk-pixbuf
+			librsvg
 			libconfig
 			pango
 			xorg.xcbutilwm
@@ -63,7 +64,7 @@
 		    --replace "\$(shell git describe)" "${version}" \
 		    --replace "a2x" "a2x --no-xmllint"
 		    '';
-
+		    #dontStrip = true;
 		};
 		default = yabar;
 		}
@@ -83,6 +84,7 @@
 		deno
 		mdbook
 		zbus-xmlgen
+		gdb unifdef
 		];
 
 		};

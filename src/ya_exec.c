@@ -109,9 +109,7 @@ static void ya_exec_redir_once(ya_block_t *blk) {
 	if (read_ret < 0) {
 		fprintf(stderr, "Error with block %s: %s\n", blk->name, strerror(errno));
 	} else if (read_ret > 0) {
-#ifdef YA_DYN_COL
 		ya_buf_color_parse(blk);
-#endif
 
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
@@ -156,9 +154,7 @@ static void ya_exec_redir_period(ya_block_t *blk) {
 			fprintf(stderr, "Error with block %s: %s\n", blk->name, strerror(errno));
 		} else if (read_ret > 0) {
 			blk->buf[read_ret] = '\0';
-#ifdef YA_DYN_COL
 			ya_buf_color_parse(blk);
-#endif
 
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
@@ -205,9 +201,7 @@ static void ya_exec_redir_persist(ya_block_t *blk) {
 			continue;
 		} else {
 			blk->buf[read_ret] = '\0';
-#ifdef YA_DYN_COL
 			ya_buf_color_parse(blk);
-#endif
 
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
