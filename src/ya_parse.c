@@ -593,14 +593,6 @@ skip_type:
 			blk->align = A_CENTER;
 		}
 	}
-	retcnf = config_setting_lookup_int(set, "fixed-size", &retint);
-	if(retcnf == CONFIG_FALSE) {
-		if(NOT_INHERIT_BLK(blk))
-			blk->width = 80;
-	}
-	else {
-		blk->width = retint;
-	}
 	retcnf = config_setting_lookup_bool(set, "pango-markup", &retint);
 	if((retcnf == CONFIG_TRUE) && retint) {
 		blk->attr |= BLKA_MARKUP_PANGO;
@@ -669,16 +661,9 @@ skip_type:
 			blk->justify = PANGO_ALIGN_CENTER;
 	}
 
-
-#ifdef YA_VAR_WIDTH
-	retcnf = config_setting_lookup_bool(set, "variable-size", &retint);
-	if (retcnf == CONFIG_TRUE && retint) {
-		blk->attr |= BLKA_VAR_WIDTH;
-		//override the initial width if inserted.
-		blk->width = 0;
-	}
-#endif //YA_VAR_WIDTH
-
+	//override the initial width if inserted.
+	blk->width = 0;
+	
 	if(blk->attr & BLKA_EXTERNAL) {
 		if(blk->attr & BLKA_MARKUP_PANGO)
 			blk->bufsize = BUFSIZE_EXT_PANGO;

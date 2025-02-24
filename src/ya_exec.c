@@ -51,11 +51,7 @@ inline static void ya_exec_intern_ewmh_blk(ya_block_t *blk) {
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
 //#endif
-#ifdef YA_VAR_WIDTH
 			DRAW_TEXT(blk);
-#else
-			ya_draw_pango_text(blk);
-#endif //YA_VAR_WIDTH
 //#ifdef YA_MUTEX
 //			pthread_mutex_unlock(&blk->mutex);
 //#endif
@@ -74,11 +70,7 @@ inline static void ya_exec_intern_ewmh_blk(ya_block_t *blk) {
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
 //#endif
-#ifdef YA_VAR_WIDTH
 			DRAW_TEXT(blk);
-#else
-			ya_draw_pango_text(blk);
-#endif //YA_VAR_WIDTH
 //#ifdef YA_MUTEX
 //			pthread_mutex_unlock(&blk->mutex);
 //#endif
@@ -114,11 +106,7 @@ static void ya_exec_redir_once(ya_block_t *blk) {
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
 //#endif
-#ifdef YA_VAR_WIDTH
 			DRAW_TEXT(blk);
-#else
-			ya_draw_pango_text(blk);
-#endif //YA_VAR_WIDTH
 //#ifdef YA_MUTEX
 //			pthread_mutex_unlock(&blk->mutex);
 //#endif
@@ -159,11 +147,7 @@ static void ya_exec_redir_period(ya_block_t *blk) {
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
 //#endif
-#ifdef YA_VAR_WIDTH
 			DRAW_TEXT(blk);
-#else
-			ya_draw_pango_text(blk);
-#endif //YA_VAR_WIDTH
 //#ifdef YA_MUTEX
 //			pthread_mutex_unlock(&blk->mutex);
 //#endif
@@ -206,11 +190,7 @@ static void ya_exec_redir_persist(ya_block_t *blk) {
 //#ifdef YA_MUTEX
 //			pthread_mutex_lock(&blk->mutex);
 //#endif
-#ifdef YA_VAR_WIDTH
 			DRAW_TEXT(blk);
-#else
-			ya_draw_pango_text(blk);
-#endif //YA_VAR_WIDTH
 //#ifdef YA_MUTEX
 //			pthread_mutex_unlock(&blk->mutex);
 //#endif

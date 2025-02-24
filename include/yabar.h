@@ -63,7 +63,7 @@ extern char *strdup(const char *s); //to suppress implicit decleration warning f
 #define GET_MAX(A, B) ((A) > (B) ? (A) : (B))
 
 
-#define DRAW_TEXT(blk) if((blk->attr & BLKA_VAR_WIDTH)) \
+#define DRAW_TEXT(blk) if(blk->attr) \
 							ya_draw_text_var_width(blk);\
 						else							\
 							ya_draw_pango_text(blk);
@@ -101,8 +101,7 @@ enum {
 	BLKA_INHERIT		= 1<<14,
 	BLKA_INTERN_X_EV	= 1<<15,
 	BLKA_ICON			= 1<<16,
-	BLKA_DIRTY_COL		= 1<<17,
-	BLKA_VAR_WIDTH		= 1<<18
+	BLKA_DIRTY_COL		= 1<<17
 };
 
 
@@ -115,7 +114,7 @@ enum {
 };
 
 //for variable-width blocks, check for whether the bar should be redrawn.
-#define SHOULD_REDRAW(blk) (((blk)->attr & BLKA_VAR_WIDTH) && (!((blk)->bar->attr & BARA_REDRAW)) && ((blk)->curwidth != (blk)->width))
+#define SHOULD_REDRAW(blk) ((blk)->attr) && (!((blk)->bar->attr & BARA_REDRAW)) && ((blk)->curwidth != (blk)->width))
 
 
 #ifdef YA_INTERNAL_EWMH
@@ -201,6 +200,7 @@ struct ya_block {
 	uint8_t justify; //justify text within block
 	uint16_t shift;
 	uint16_t width;
+	int curwidth; // for variable widths
 
 	xcb_pixmap_t pixmap;
 	xcb_gcontext_t gc;
@@ -233,9 +233,6 @@ struct ya_block {
 	pthread_mutex_t mutex;
 #endif //YA_MUTEX
 
-#ifdef YA_VAR_WIDTH
-	int curwidth;
-#endif //YA_VAR_WIDTH
 };
 
 

@@ -140,10 +140,7 @@ void ya_create_block(ya_block_t *blk) {
 	int blk_width = 0;
 	//If variable width attribute is enabled, use the maximum available width for a block
 	//which is the monitor width to create a pixmap.
-	if ((blk->attr & BLKA_VAR_WIDTH))
 		blk_width = blk->bar->mon->pos.width;
-	else
-		blk_width = blk->width;
 	xcb_create_pixmap(ya.c,
 			ya.depth,
 			blk->pixmap,
@@ -415,50 +412,20 @@ inline void ya_draw_bar_curwin(ya_bar_t *bar) {
  * Redraw the entire bar
  */
 void ya_redraw_bar(ya_bar_t *bar) {
-	bar->attr |= BARA_REDRAW;
 	ya_draw_bar_curwin(bar);
 
 	for(int i=0; i<3;i++) {
 		for(ya_block_t *blk = bar->curblk[i]; blk; blk = blk->next_blk) {
-			if((blk->attr & BLKA_VAR_WIDTH) && (i!=A_RIGHT)) {
+		    //if(i!=A_RIGHT) {
 				ya_draw_text_var_width(blk);
-				break;
+		//		break;
 			}
-			else
-				ya_draw_pango_text(blk);
-		}
+			//else
+				//ya_draw_pango_text(blk);
+		//}
 	}
 
-	bar->attr &= ~BARA_REDRAW;
 }
-
-
-
-
-
-
-
-
-#ifdef YA_VAR_WIDTH
-/*
- *Calculate the correct shift of blocks and then redraw the bar.
- */
-/*
-void ya_resetup_bar(ya_block_t *blk) {
-	//Lock the bar!
-	//occupied_width member will be modified after calculating the maximum
-	//allowed size of block width using ya_set_width_resetup()
-#ifdef YA_MUTEX
-	pthread_mutex_lock(&blk->bar->mutex);
-#endif
-	ya_set_width_resetup(blk);
-	ya_redraw_bar(blk->bar);
-#ifdef YA_MUTEX
-	pthread_mutex_unlock(&blk->bar->mutex);
-#endif
-}
-*/
-
 
 /*
  * Compute the maximum width for text as if there were no width
@@ -486,6 +453,7 @@ static inline void ya_get_text_max_width(ya_block_t *blk) {
 	int ht;
 	//Get the width that text can be drawn comfortably and put it in curwidth member.
 	pango_layout_get_pixel_size(layout, &blk->curwidth, &ht);
+	fprintf(stderr, "blk %s text_max_width is %d\n", blk->name, blk->width);
 	cairo_surface_flush(surface);
 	xcb_flush(ya.c);
 
@@ -636,8 +604,6 @@ void ya_draw_text_var_width(ya_block_t * blk) {
 	}
 	//pthread_mutex_unlock(&blk->bar->mutex);
 }
-
-#endif //YA_VAR_WIDTH
 
 /*
  * This filters out the underline and background attributes so we can separate them
