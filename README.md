@@ -1,6 +1,6 @@
 # Yabar
 
-A modern and lightweight status bar for X window managers.
+A status bar for X window managers.
 
 ## Screenshots
 
@@ -10,7 +10,7 @@ A modern and lightweight status bar for X window managers.
 
 ## Description
 
-Yabar is a modern and lightweight status bar that is intended to be used along with minimal X window managers like `bspwm` and `i3`. Yabar has the following features:
+Yabar is a status bar that is intended to be used along with minimal X window managers like `bspwm` and `i3`. Yabar has the following features:
 
 * Extremely configurable with easy configuration system using a single config file.
 * A growing set of ready-to-use internal blocks developed in plain c.
@@ -21,12 +21,6 @@ Yabar is a modern and lightweight status bar that is intended to be used along w
 * Entirely clickable.
 * Support for several environment variables to help button commands.
 * Multiple bars within the same session.
-
-**Warning**: Yabar is still in its infancy and far from being mature. Feel free to contribute or report bugs!
-
-## Terminology
-
-A Yabar session should contain one or more *bars* within the same session. Each bar should contain one or more *blocks*. Each block should display some useful info to the user (free memory, CPU temperature, etc...).
 
 ## Installation
 
@@ -84,4 +78,4 @@ Please see [our documentation](doc/yabar.1.asciidoc) for in-depth configuration 
 
 ## License
 
-Yabar is licensed under the MIT license. For more info check out the file `LICENSE`.
+Yabar is licensed under the MIT license.
