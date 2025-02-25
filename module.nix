@@ -25,6 +25,7 @@ let
         ${name}: {
           font: "${cfg.font}";
           position: "${cfg.position}";
+	  background-color-rgb: 0x${cfg.colors.background};
 
           ${mapExtra cfg.extra}
 
@@ -67,8 +68,8 @@ in
         lib.types.submodule {
           options = {
             font = lib.mkOption {
-              default = "sans bold 9";
-              example = "Droid Sans, FontAwesome Bold 9";
+              default = "sans bold 12";
+              example = "Droid Sans, FontAwesome Bold 12";
               type = lib.types.str;
 
               description = ''
@@ -89,6 +90,15 @@ in
               '';
             };
 
+	    colors = lib.mkOption {
+		default = {
+		    background = "000000";
+		    border = "262626";
+		};
+		type = lib.types.attrsOf lib.types.anything;
+		description = "Bar-specific colors entered as 6 letters/numbers. This will convert them to the format the configuration specifies, which prepends it with 0x.";
+	    };
+
             extra = lib.mkOption {
               default = { };
               type = lib.types.attrsOf (lib.types.either lib.types.str lib.types.int);
@@ -99,7 +109,7 @@ in
             };
 
             blocks = lib.mkOption {
-              default = { };
+              default = {};
               type = lib.types.attrsOf (
                 lib.types.submodule {
                   options.exec = lib.mkOption {
