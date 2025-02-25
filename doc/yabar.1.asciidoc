@@ -108,11 +108,6 @@ border-size: 2;
 border-color-rgb: 0xffffff;
 ----
 
-* *No-window-color*: Fallback color for the bar when there is no active window in the current desktop/workspace. Example:
-----
-background-color-nowindow-argb: 0xff430343;
-----
-
 * *Inheritance*: As the config file gets larger because you want to add several bars, you may find yourself adding many identical option values for every added bar. This optional entry is added in order to inherit the options from a precedent bar into your next bar. You can also override the inherited options with new values.
 ----
 # inherit bar-specific options:
@@ -144,7 +139,7 @@ Each block can have its own command, background, foreground (i.e. font), underli
 exec: "date +%F";
 ----
 
-* *Alignment*: accepts 'left', 'center' or 'right' alignments. Consecutive blocks will be placed to the right of each other. Example:
+* *Alignment*: accepts 'left' or 'right' alignments. Consecutive blocks will be placed to the right of each other. Example:
 ----
 align: "right";
 ----
@@ -164,11 +159,6 @@ type: "once";
 * *Interval*: interval in seconds for 'periodic' blocks. Example:
 ----
 interval: 3;
-----
-
-* *Fixed size*: define the fixed width size of the block. Yabar currently only supports fixed widths. You can deduce the appropriate width using trial and error. The current default value is 80 but you are encouraged to override it to a more appropriate value. Example:
-----
-fixed-size: 90;
 ----
 
 * *Pango markup*: en- or disable Pango Markup. Accepts either 'true' or 'false' (without quotes). Default is false. Example:
@@ -214,11 +204,6 @@ image-scale-width: 0.4; # float value
 image-scale-height: 0.4; # float value
 ----
 
-* *Variable width*: Use this optional feature in order to fit the block width into the current text width and subsequently save empty space inside the bar. Example:
-----
-variable-size: true;
-----
-
 DYNAMIC COLORS FOR BLOCKS
 -------------------------
 You can change block colors ('background', 'foreground', 'underline' and 'overline') within runtime. Along with pango markup format, you can fully control how a block looks throughout yabar's session.
@@ -258,7 +243,6 @@ interval: 1;
 * *YABAR_TITLE* - *Window title*: Uses EWMH to show the current window title. Example:
 ----
 exec: "YABAR_TITLE";
-fixed-size: 300;
 ----
 
 * *YABAR_WORKSPACE* - *Workspace*: Uses EWMH to show the current workspace/desktop. 'internal-option1' represents a series of characters/numbers/names to be used as workspace names (seperated by space). If you want to have spaces in the names that are displayed, insert an alternative unicode spacing character (such as U+2000) instead of a regular space. Example:
@@ -351,7 +335,6 @@ internal-suffix: "%";
 exec: "YABAR_WIFI";
 internal-option1: "wlan0";
 internal-prefix: " ";
-fixed-size: 150;
 ----
 
 * *YABAR_DISKSPACE* - *Disk space usage*: Display used/total space (e.g. 84G/320G) for one or multiple file systems. Example:
