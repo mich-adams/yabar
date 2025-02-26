@@ -25,7 +25,7 @@ let
         ${name}: {
           font: "${cfg.font}";
           position: "${cfg.position}";
-	  background-color-rgb: 0x${cfg.colors.background};
+	  background-color: 0xff${cfg.colors.background};
 
           ${mapExtra cfg.extra}
 

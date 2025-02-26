@@ -315,22 +315,9 @@ static void ya_setup_bar(config_setting_t * set) {
 	if(retcnf == CONFIG_TRUE) {
 		bar->oosize = retint;
 	}
-	retcnf = config_setting_lookup_int(set, "background-color-argb", &retint);
-	if(retcnf == CONFIG_FALSE) {
-		if(NOT_INHERIT_BAR(bar))
-			bar->bgcolor = 0xff1d1d1d;
-	}
-	else {
-		bar->bgcolor = retint;
-	}
-	retcnf = config_setting_lookup_int(set, "background-color-rgb", &retint);
+	retcnf = config_setting_lookup_int(set, "background-color", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		bar->bgcolor = retint | 0xff000000;
-	}
-	retcnf = config_setting_lookup_int(set, "background-color-nowindow-argb", &retint);
-	if(retcnf == CONFIG_TRUE) {
-		bar->bgcolor_none = retint;
-		bar->attr |= BARA_DYN_COL;
 	}
 	retcnf = config_setting_lookup_int(set, "slack-size", &retint);
 	if(retcnf == CONFIG_TRUE) {
@@ -339,7 +326,7 @@ static void ya_setup_bar(config_setting_t * set) {
 	retcnf = config_setting_lookup_int(set, "border-size", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		bar->brsize = retint;
-		retcnf = config_setting_lookup_int(set, "border-color-rgb", &retint);
+		retcnf = config_setting_lookup_int(set, "border-color", &retint);
 		if(retcnf == CONFIG_TRUE) {
 			bar->brcolor = retint;
 		}
