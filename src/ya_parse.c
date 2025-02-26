@@ -317,7 +317,7 @@ static void ya_setup_bar(config_setting_t * set) {
 	}
 	retcnf = config_setting_lookup_int(set, "background-color", &retint);
 	if(retcnf == CONFIG_TRUE) {
-		bar->bgcolor = retint | 0xff000000;
+		bar->bgcolor = retint | 0x00000000;
 	}
 	retcnf = config_setting_lookup_int(set, "slack-size", &retint);
 	if(retcnf == CONFIG_TRUE) {
@@ -585,47 +585,30 @@ skip_type:
 		blk->attr |= BLKA_MARKUP_PANGO;
 	}
 
-	retcnf = config_setting_lookup_int(set, "background-color-argb", &retint);
+	retcnf = config_setting_lookup_int(set, "background-color", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		blk->bgcolor = (uint32_t) retint;
 		blk->attr |= BLKA_BGCOLOR;
 	}
-	retcnf = config_setting_lookup_int(set, "background-color-rgb", &retint);
-	if(retcnf == CONFIG_TRUE) {
-		blk->bgcolor = retint | 0xff000000;
-		blk->attr |= BLKA_BGCOLOR;
+	else {
+		blk->fgcolor = 0xffffffff;
 	}
-	retcnf = config_setting_lookup_int(set, "foreground-color-argb", &retint);
+	retcnf = config_setting_lookup_int(set, "foreground-color", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		blk->fgcolor = retint;
-		blk->attr |= BLKA_FGCOLOR;
-	}
-	retcnf = config_setting_lookup_int(set, "foreground-color-rgb", &retint);
-	if(retcnf == CONFIG_TRUE) {
-		blk->fgcolor = retint | 0xff000000;
 		blk->attr |= BLKA_FGCOLOR;
 	}
 	else {
 		blk->fgcolor = 0xffffffff;
 	}
-	retcnf = config_setting_lookup_int(set, "underline-color-argb", &retint);
+	retcnf = config_setting_lookup_int(set, "underline-color", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		blk->ulcolor = retint;
 		blk->attr |= BLKA_UNDERLINE;
 	}
-	retcnf = config_setting_lookup_int(set, "underline-color-rgb", &retint);
-	if(retcnf == CONFIG_TRUE) {
-		blk->ulcolor = retint | 0xff000000;
-		blk->attr |= BLKA_UNDERLINE;
-	}
-	retcnf = config_setting_lookup_int(set, "overline-color-argb", &retint);
+	retcnf = config_setting_lookup_int(set, "overline-color", &retint);
 	if(retcnf == CONFIG_TRUE) {
 		blk->olcolor = retint;
-		blk->attr |= BLKA_OVERLINE;
-	}
-	retcnf = config_setting_lookup_int(set, "overline-color-rgb", &retint);
-	if(retcnf == CONFIG_TRUE) {
-		blk->olcolor = retint | 0xff000000;
 		blk->attr |= BLKA_OVERLINE;
 	}
 	retcnf = config_setting_lookup_string(set, "justify", &retstr);

@@ -25,7 +25,6 @@ let
         ${name}: {
           font: "${cfg.font}";
           position: "${cfg.position}";
-	  background-color: 0xff${cfg.colors.background};
 
           ${mapExtra cfg.extra}
 
@@ -89,15 +88,6 @@ in
                 The position where the bar will be rendered.
               '';
             };
-
-	    colors = lib.mkOption {
-		default = {
-		    background = "000000";
-		    border = "262626";
-		};
-		type = lib.types.attrsOf lib.types.anything;
-		description = "Bar-specific colors entered as 6 letters/numbers. This will convert them to the format the configuration specifies, which prepends it with 0x.";
-	    };
 
             extra = lib.mkOption {
               default = { };
